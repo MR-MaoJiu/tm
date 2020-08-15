@@ -51,24 +51,24 @@ class _XunRenState extends State<XunRen> {
     await AMapLocationClient.startup(new AMapLocationOption(
         desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
     AMapLocationClient.getLocation(true).then((value) async {
+      latitude = value.latitude.toString() ?? "0";
+      longitude = value.longitude.toString() ?? "0";
       await UserAPI.updateLoc(
-          params: UpdateLocRequestEntity(
-              latitude: value.latitude.toString() ?? "0",
-              longitude: value.longitude.toString() ?? "0"));
+          params:
+              UpdateLocRequestEntity(latitude: latitude, longitude: longitude));
+      _getData();
     });
-    _getData();
   }
 
   void _getData() async {
     //获取本机定位，方便查找其它设备
+    //TODO:改变定位方式
     await AMapLocationClient.startup(new AMapLocationOption(
         desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
     AMapLocationClient.getLocation(true).then((value) async {
       entity = await UserAPI.getMatchingInformation(
           params: GetMatchingInformationRequestEntity(
-              latitude: value.latitude.toString() ?? "0",
-              longitude: value.longitude.toString() ?? "0",
-              radius: "10"));
+              latitude: latitude, longitude: longitude, radius: "100"));
       if (entity.data != null && entity.data.message != null) {
         setState(() {
 //        entity.data.userData.length > 0
@@ -304,7 +304,7 @@ class _XunRenState extends State<XunRen> {
               onPressed: () {
                 setState(() {
                   titletips = "正在寻人";
-                  _getData();
+                  _updateLoc();
                 });
               },
               child: Text(

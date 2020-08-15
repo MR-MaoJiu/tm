@@ -8,3 +8,5 @@ export 'RegisteredResponseEntity.dart';
 export 'RegisteredRequestEntity.dart';
 export 'GetMatchingInformationResponseEntity.dart';
 export 'GetMatchingInformationRequestEntity.dart';
+export 'GetPostRequestEntity.dart';
+export 'GetPostResponseEntity.dart';

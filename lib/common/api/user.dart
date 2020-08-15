@@ -53,7 +53,7 @@ class UserAPI {
       {UpdateLocRequestEntity params}) async {
     try {
       var response =
-          await HttpUtils.post(getUserAddress, data: params.toJson());
+          await HttpUtils.post(updateLocAddress, data: params.toJson());
       debugPrint("返回消息：$response");
       return ApiResponse.completed(UpdateLocResponseEntity.fromJson(response));
     } on DioError catch (e) {
