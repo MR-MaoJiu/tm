@@ -2,16 +2,16 @@ import 'dart:math';
 import 'package:amap_location/amap_location.dart';
 import 'package:amap_location/amap_location_option.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tm/common/animation/animation.dart';
 import 'package:tm/common/api/api.dart';
 import 'package:tm/common/entity/UpdateLocRequestEntity.dart';
-import 'package:tm/common/entity/UpdateLocResponseEntity.dart';
+
 import 'package:tm/common/utils/play_audio.dart';
 import 'package:tm/common/utils/utils.dart';
 import 'package:tm/common/entity/entity.dart';
 import 'package:tm/common/values/server_address.dart';
 import 'package:tm/common/widgets/usercard.dart';
+import 'package:tm/pages/message.dart';
 
 class XunRen extends StatefulWidget {
   @override
@@ -110,14 +110,14 @@ class _XunRenState extends State<XunRen> {
           }
         });
       } else {
-        Fluttertoast.showToast(
-          fontSize: 12.0,
-          msg: "网络故障稍后重试",
-          toastLength: Toast.LENGTH_SHORT,
-          timeInSecForIosWeb: 1,
-          textColor: Colors.black87,
-          gravity: ToastGravity.BOTTOM,
-        );
+//        Fluttertoast.showToast(
+//          fontSize: 12.0,
+//          msg: "网络故障稍后重试",
+//          toastLength: Toast.LENGTH_SHORT,
+//          timeInSecForIosWeb: 1,
+//          textColor: Colors.black87,
+//          gravity: ToastGravity.BOTTOM,
+//        );
       }
     });
   }
@@ -146,6 +146,11 @@ class _XunRenState extends State<XunRen> {
         },
         onPositivePressEvent: () {
           debugPrint("===========>");
+          Navigator.pop(context);
+          PlayAudio.stop();
+          Navigator.of(context).pushNamed("/message", arguments: {
+            "jointype": 0,
+          });
         },
       ),
     );
@@ -277,6 +282,8 @@ class _XunRenState extends State<XunRen> {
                 onTap: () {
                   Navigator.of(context).pop();
 //                    Navigator.of(context).push( MaterialPageRoute(builder: (BuildContext context) =>  SidebarPage()));
+                  SpUtil().remove("accessToken");
+                  Navigator.of(context).pushReplacementNamed('/login');
                 }),
           ],
         ),

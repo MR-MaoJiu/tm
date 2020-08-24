@@ -5,19 +5,23 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:tm/common/utils/utils.dart';
 import 'package:tm/pages/bottom_navigation.dart';
+import 'package:tm/pages/dongtai_details.dart';
+import 'package:tm/pages/message.dart';
+import 'package:tm/pages/push_post.dart';
 import 'package:tm/pages/registered.dart';
 import 'package:tm/pages/welcome.dart';
 import 'common/values/values.dart';
 import 'pages/login.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpUtils.init(
     ///接口基地址
     baseUrl: ipAddress,
   );
   AMapLocationClient.setApiKey("a9af2a506b91660f6decc0455b90277c");
   //_initJPush();
-  WidgetsFlutterBinding.ensureInitialized();
+
   SpUtil.init()..then((e) => runApp(MyApp()));
 }
 //
@@ -57,6 +61,9 @@ class _MyAppState extends State<MyApp> {
         '/login': (_) => Login(),
         '/registered': (_) => Registered(),
         '/bottom_navigation': (_) => BottomNavigation(),
+        '/message': (_) => MessagePage(),
+        '/push_post': (_) => PushPost(),
+        '/dongtai_details': (_) => DongTaiDetails(),
       },
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false, //去掉debug

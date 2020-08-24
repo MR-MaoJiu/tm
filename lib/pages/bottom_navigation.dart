@@ -1,12 +1,11 @@
-import 'dart:ui';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tm/common/utils/play_audio.dart';
 import 'package:tm/pages/xunren.dart';
-import 'package:tm/common/utils/utils.dart';
 import 'package:tm/pages/chat.dart';
 import 'package:tm/pages/dongtai.dart';
-import 'package:tm/pages/test.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   final pages = [XunRen(), DongTai(), Chat()];
   var currentIndex = 0;
-
+  DateTime lastPopTime;
   final List<BottomNavigationBarItem> bottomNavItems = [
     BottomNavigationBarItem(
       icon: Icon(Icons.wifi_tethering),
@@ -42,23 +41,40 @@ class _BottomNavigationState extends State<BottomNavigation> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: bottomNavItems,
-        currentIndex: currentIndex,
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          _changePage(index);
-        },
+    return WillPopScope(
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          items: bottomNavItems,
+          currentIndex: currentIndex,
+          type: BottomNavigationBarType.fixed,
+          onTap: (index) {
+            _changePage(index);
+          },
+        ),
+        body: pages[currentIndex],
       ),
-      body: pages[currentIndex],
+      // ignore: missing_return
+      onWillPop: () async {
+        // 点击返回键的操作
+        if (lastPopTime == null ||
+            DateTime.now().difference(lastPopTime) > Duration(seconds: 2)) {
+          lastPopTime = DateTime.now();
+          Fluttertoast.showToast(
+            fontSize: 12.0,
+            msg: "再按一次退出",
+            toastLength: Toast.LENGTH_SHORT,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.black87,
+            gravity: ToastGravity.BOTTOM,
+          );
+        } else {
+          lastPopTime = DateTime.now();
+          PlayAudio.stop();
+          // 退出app
+          await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        }
+      },
     );
   }
 }

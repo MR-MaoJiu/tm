@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tm/common/widgets/widges.dart';
 
 class Chat extends StatefulWidget {
   @override
@@ -27,8 +28,29 @@ class _ChatState extends State<Chat> {
         ),
         body: TabBarView(
           children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
+            ListView(
+              children: <Widget>[
+                FriendCard(
+                  nickname: "猫九",
+                  gander: "男",
+                  photo:
+                      "https://wimg.ruan8.com/uploadimg/image/20180912/20180912161716_99988.jpg",
+                  body: "哈哈哈",
+                  time: "12:36",
+                )
+              ],
+            ),
+            ListView(
+              children: <Widget>[
+                FriendCard(
+                  nickname: "猫九",
+                  gander: "男",
+                  photo:
+                      "https://wimg.ruan8.com/uploadimg/image/20180912/20180912161716_99988.jpg",
+                  body: "哈哈哈",
+                )
+              ],
+            ),
           ],
         ),
       ),

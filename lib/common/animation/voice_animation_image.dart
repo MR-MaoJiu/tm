@@ -6,30 +6,26 @@ class VoiceAnimationImage extends StatefulWidget {
   final double width;
   final double height;
   int interval = 200;
-  bool isStop= false;
+  bool isStop = false;
   var callStart;
   VoiceAnimationImageState voiceAnimationImageState;
 
-
   VoiceAnimationImage(this._assetList,
-      {this.width, this.height, this.isStop,this.interval});
+      {this.width, this.height, this.isStop, this.interval});
 
   @override
   State<StatefulWidget> createState() {
-     voiceAnimationImageState = VoiceAnimationImageState();
+    voiceAnimationImageState = VoiceAnimationImageState();
     return voiceAnimationImageState;
   }
 
-
-  start(){
+  start() {
     voiceAnimationImageState.start();
   }
 
-  stop(){
+  stop() {
     voiceAnimationImageState.stop();
   }
-
-
 }
 
 class VoiceAnimationImageState extends State<VoiceAnimationImage>
@@ -60,10 +56,9 @@ class VoiceAnimationImageState extends State<VoiceAnimationImage>
 
     _animation = new Tween<double>(begin: 0, end: imageCount.toDouble())
         .animate(_controller)
-      ..addListener(() {
-        setState(() {
-        });
-      });
+          ..addListener(() {
+            setState(() {});
+          });
   }
 
   @override
@@ -82,10 +77,9 @@ class VoiceAnimationImageState extends State<VoiceAnimationImage>
 
   @override
   Widget build(BuildContext context) {
-
-    if(widget.isStop){
+    if (widget.isStop) {
       start();
-    }else{
+    } else {
       stop();
     }
     int ix = _animation.value.floor() % widget._assetList.length;
@@ -97,6 +91,7 @@ class VoiceAnimationImageState extends State<VoiceAnimationImage>
           widget._assetList[i],
           width: 0,
           height: 0,
+          color: Colors.cyanAccent,
         ));
       }
     }
@@ -104,7 +99,8 @@ class VoiceAnimationImageState extends State<VoiceAnimationImage>
       widget._assetList[ix],
       width: widget.width,
       height: widget.height,
+      color: Colors.cyanAccent,
     ));
-    return  Stack(alignment: AlignmentDirectional.center, children: images);
+    return Stack(alignment: AlignmentDirectional.center, children: images);
   }
 }

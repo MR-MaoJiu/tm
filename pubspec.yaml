@@ -50,6 +50,8 @@ dependencies:
   flutter_plugin_record: ^0.1.7
   #图片预览
   photo_view: ^0.9.2
+  #图片选择
+  image_picker: ^0.6.7+4
   #音频播放
   audioplayers: ^0.15.1
   #定位
@@ -77,6 +79,9 @@ dependencies:
   flutter_app_badger: ^1.1.2
   #极光推送
 #  flutter_jpush: ^0.0.4
+  #点赞
+  like_button: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
