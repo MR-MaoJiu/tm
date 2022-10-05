@@ -1,0 +1,14 @@
+{
+  "buttons": {
+    "register": "注册",
+    "login": "登录",
+    "logout": "登出",
+    "sign_in_wechat": "微信登录",
+    "sign_in_apple": "苹果登录"
+  },
+  "text": {
+    "tm": "十米",
+    "mine": "我的",
+    "home": "首页"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "buttons": {
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "sign_in_wechat": "Sign-in with WeChat",
+    "sign_in_apple": "Sign-in with Apple"
+  },
+  "text": {
+    "tm": "ten metres",
+    "mine": "mine",
+    "home": "home"
+  }
+}
